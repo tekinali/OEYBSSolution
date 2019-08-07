@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1CB1309B-A351-416B-BA4A-568E7903BFDB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>OEYBS.DataAccess</RootNamespace>
+    <AssemblyName>OEYBS.DataAccess</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="FakeData, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FakeData.1.0.0\lib\FakeData.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Abstract\IAppRoleDal.cs" />
+    <Compile Include="Abstract\IAppUserDal.cs" />
+    <Compile Include="Abstract\IClassroomDal.cs" />
+    <Compile Include="Abstract\IClassroomTypeDal.cs" />
+    <Compile Include="Abstract\ICorporationDal.cs" />
+    <Compile Include="Abstract\ICorporationAddressDal.cs" />
+    <Compile Include="Abstract\ICorporationEmployeeDal.cs" />
+    <Compile Include="Abstract\ICorporationOwnerDal.cs" />
+    <Compile Include="Abstract\ICorporationSchoolManagerDal.cs" />
+    <Compile Include="Abstract\ICorporationStudentDal.cs" />
+    <Compile Include="Abstract\ICorporationTeacherDal.cs" />
+    <Compile Include="Abstract\IEducationDal.cs" />
+    <Compile Include="Abstract\IEducationBranchDal.cs" />
+    <Compile Include="Abstract\IEmployeeDal.cs" />
+    <Compile Include="Abstract\IEmployeeJobDal.cs" />
+    <Compile Include="Abstract\IJobDal.cs" />
+    <Compile Include="Abstract\ISchoolManagerDal.cs" />
+    <Compile Include="Abstract\IStudentDal.cs" />
+    <Compile Include="Abstract\IStudentReportDal.cs" />
+    <Compile Include="Abstract\ISystemAdministratorDal.cs" />
+    <Compile Include="Abstract\ITeacherDal.cs" />
+    <Compile Include="Abstract\ITeacherFieldDal.cs" />
+    <Compile Include="Abstract\IUserRoleDal.cs" />
+    <Compile Include="Concrete\EntityFramework\DatabaseContext.cs" />
+    <Compile Include="Concrete\EntityFramework\EfAppRoleDal.cs" />
+    <Compile Include="Concrete\EntityFramework\EfAppUserDal.cs" />
+    <Compile Include="Concrete\EntityFramework\EfEmployeeJobDal.cs.cs" />
+    <Compile Include="Concrete\EntityFramework\EfJobDal.cs" />
+    <Compile Include="Concrete\EntityFramework\EfSchoolManagerDal.cs" />
+    <Compile Include="Concrete\EntityFramework\EfTeacherDal.cs" />
+    <Compile Include="Concrete\EntityFramework\EfTeacherFieldDal.cs" />
+    <Compile Include="Concrete\EntityFramework\EfUserRoleDal.cs" />
+    <Compile Include="Concrete\EntityFramework\EfClassroomDal.cs" />
+    <Compile Include="Concrete\EntityFramework\EfClassroomTypeDal.cs" />
+    <Compile Include="Concrete\EntityFramework\EfCorporationAddressDal.cs" />
+    <Compile Include="Concrete\EntityFramework\EfCorporationDal.cs" />
+    <Compile Include="Concrete\EntityFramework\EfCorporationEmployeeDal.cs" />
+    <Compile Include="Concrete\EntityFramework\EfCorporationOwnerDal.cs" />
+    <Compile Include="Concrete\EntityFramework\EfCorporationSchoolManagerDal.cs" />
+    <Compile Include="Concrete\EntityFramework\EfCorporationStudentDal.cs" />
+    <Compile Include="Concrete\EntityFramework\EfCorporationTeacherDal.cs" />
+    <Compile Include="Concrete\EntityFramework\EfEducationBranchDal.cs" />
+    <Compile Include="Concrete\EntityFramework\EfEducationDal.cs" />
+    <Compile Include="Concrete\EntityFramework\EfEmployeeDal.cs" />
+    <Compile Include="Concrete\EntityFramework\EfStudentDal.cs" />
+    <Compile Include="Concrete\EntityFramework\EfStudentReportDal.cs" />
+    <Compile Include="Concrete\EntityFramework\EfSystemAdministratorDal.cs" />
+    <Compile Include="Concrete\EntityFramework\MyIntializer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OEYBS.Core\OEYBS.Core.csproj">
+      <Project>{d6479711-9cff-4a1b-b4e7-646f1ec1961b}</Project>
+      <Name>OEYBS.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OEYBS.Entities\OEYBS.Entities.csproj">
+      <Project>{bf4c0c62-335a-41c0-8078-1e19a78c3785}</Project>
+      <Name>OEYBS.Entities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Concrete\NHibernate\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

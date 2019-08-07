@@ -1,0 +1,562 @@
+﻿@using OEYBS.WebUI.Areas.SystemAdministrator.ViewModels.Corporation
+@model DetailsViewModel
+
+@{
+    ViewBag.Title = "Kurum Detay";
+}
+
+
+
+<div class="row">
+    <div class="col-md-7">
+        <!-- Corporation Info -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Kurum Bilgileri</h6>
+            </div>
+            <div class="card-body">
+                <div class="form-group row">
+                    <label for="Name" class="col-sm-3 col-form-label">Kurum Adı</label>
+                    <div class="col-sm-9">
+                        @Html.TextBoxFor(model => model.Corporation.Name, new { @class = "form-control", @readonly = "" })
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="Code" class="col-sm-3 col-form-label">Kurum Kodu</label>
+                    <div class="col-sm-9">
+                        @Html.TextBoxFor(model => model.Corporation.Code, new { @class = "form-control", @readonly = "" })
+
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="CreatedOn" class="col-sm-3 col-form-label">Oluşturulma Tarihi</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" readonly value="@Model.Corporation.CreatedOn.ToString("dd.MM.yyyy hh:mm")" />
+                    </div>
+                </div>
+
+
+                <div class="form-group row">
+                    <label for="StartOfContractDate" class="col-sm-3 col-form-label">Sözleşme Başlangıcı</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" readonly value="@Model.Corporation.StartOfContractDate.ToString("dd.MM.yyyy")" />
+
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="EndOfContractDate" class="col-sm-3 col-form-label">Sözleşme Bitişi</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" readonly value="@Model.Corporation.EndOfContractDate.ToString("dd.MM.yyyy")" />
+                    </div>
+                </div>
+
+
+                <div class="form-group row">
+                    <label for="StartOfContractDate" class="col-sm-3 col-form-label">Vergi Dairesi</label>
+                    <div class="col-sm-9">
+                        @Html.TextBoxFor(model => model.Corporation.DepartmentofTaxation, new { @class = "form-control", @readonly = "" })
+
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="EndOfContractDate" class="col-sm-3 col-form-label">Vergi Numarası</label>
+                    <div class="col-sm-9">
+                        @Html.TextBoxFor(model => model.Corporation.TaxNumber, new { @class = "form-control", @readonly = "" })
+                    </div>
+                </div>
+
+
+                <div class="form-group row">
+                    <label for="Status" class="col-sm-3 col-form-label">Durumu</label>
+                    <div class="col-sm-9">
+                        @if (Model.Corporation.IsActive)
+                        {
+                            <span class="badge badge-success mr-2">Aktif</span>
+                        }
+                        else
+                        {
+                            <span class="badge badge-danger mr-2">Aktif</span>
+                        }
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-5">
+
+
+        <div class="card shadow mb-3" style="max-height:77px;">
+            <div class="card-body text-center">
+                <div class="form-group">
+                    <a href="#" class="btn btn-warning btn-icon-split">
+                        <span class="icon text-white-50">
+                            <i class="fas fa-edit"></i>
+                        </span>
+                        <span class="text">Kurum İşlemleri</span>
+                    </a>            
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- CorporationOwner Info -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Kurum Sahibi Bilgileri</h6>
+            </div>
+            <div class="card-body">
+                <div class="form-group row">
+                    <label for="Name" class="col-sm-3 col-form-label">Adı</label>
+                    <div class="col-sm-9">
+                        @Html.TextBoxFor(model => model.Owner.FirstName, new { @class = "form-control", @readonly = "" })
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="Code" class="col-sm-3 col-form-label">Soyadı</label>
+                    <div class="col-sm-9">
+                        @Html.TextBoxFor(model => model.Owner.LastName, new { @class = "form-control", @readonly = "" })
+
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="CreatedOn" class="col-sm-3 col-form-label">TC Kimlik Numarası</label>
+                    <div class="col-sm-9">
+                        @Html.TextBoxFor(model => model.Owner.IdentificationNumber, new { @class = "form-control", @readonly = "" })
+                    </div>
+                </div>
+
+
+
+
+
+
+            </div>
+        </div>
+
+
+        <!-- CorporationAddress Info -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Kurum Adresleri</h6>
+            </div>
+            <div class="card-body">
+
+                @foreach (var item in Model.Addresses)
+                {
+
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group list-group-flush">
+                            <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#addressModal_@item.Id">
+                                @item.Title
+                            </button>
+                        </li>
+                    </ul>
+
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="addressModal_@item.Id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Adres Bilgisi</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group row">
+                                        <label for="Name" class="col-sm-3 col-form-label">Başlık</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" readonly value="@item.Title" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="Name" class="col-sm-3 col-form-label">Şehir</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" readonly value="@item.City" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="Name" class="col-sm-3 col-form-label">İlçe</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" readonly value="@item.District" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="Name" class="col-sm-3 col-form-label">Posta Kodu</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" readonly value="@item.PostCode" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="Name" class="col-sm-3 col-form-label">Adres</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" readonly value="@item.Line" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="Name" class="col-sm-3 col-form-label">Telefon</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" readonly value="@item.PhoneNumber" />
+                                        </div>
+                                    </div>
+
+                                    @if (item.PhoneNumber2 != null)
+                                    {
+                                        <div class="form-group row">
+                                            <label for="Name" class="col-sm-3 col-form-label">Telefon2</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" readonly value="@item.PhoneNumber2" />
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                }
+
+
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <!--  Classroom Info -->
+        <div class="card shadow mb-4">
+            <a href="#collapseClassroom" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
+                <h6 class="m-0 font-weight-bold text-primary">Sınıf Bilgileri</h6>
+            </a>
+
+            <div class="collapse show" id="collapseClassroom">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover" id="dtClassrooms" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Sınıf Adı</th>
+                                    <th>Kapasite</th>
+                                    <th>Açıklama</th>
+                                    <th>Sınıf Tipi</th>                           
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Classrooms)
+                                {
+                                <tr>
+                                    <td>@item.Name</td>
+                                    <td>@item.Total</td>
+                                    <td>@item.Description</td>
+                                    <td>@item.ClassroomTypeId</td>
+                                </tr>
+                                }
+
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-md-6">
+        <!--  Education Info -->
+        <div class="card shadow mb-4">
+            <a href="#collapseEducation" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
+                <h6 class="m-0 font-weight-bold text-primary">Eğitim Bilgileri</h6>
+            </a>
+            <div class="collapse show" id="collapseEducation">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover" id="dtEducations" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Eğitim Adı</th>
+                                    <th>Kapasite</th>
+                                    <th>Açıklama</th>                                 
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Educations)
+                                {
+                                    <tr>
+                                        <td>@item.Name</td>
+                                        <td>@item.Total</td>
+                                        <td>@item.Description</td>                           
+                                    </tr>
+                                }
+
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <!--  SchoolManager Info -->
+        <div class="card shadow mb-4">
+            <a href="#collapseSchoolManager" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
+                <h6 class="m-0 font-weight-bold text-primary">Kurum İdarecileri</h6>
+            </a>
+
+            <div class="collapse show" id="collapseSchoolManager">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover" id="dtSchoolManagers" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Adı</th>
+                                    <th>Soyadı</th>
+                                    <th>Görevi</th>
+                                    <th style="width:5%;"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.SchoolManagers)
+                                {
+                                    <tr>
+                                        <td>@item.FirstName</td>
+                                        <td>@item.LastName</td>
+                                        <td>Müdür Yardımcısı</td>
+                                        <td class="text-center">
+                                            <a href="@Url.Action("Details","Corporation",new { id=item.Id})" class="btn btn-primary btn-circle btn-sm" title="Detaylar">
+                                                <i class="fas fa-angle-right"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>    
+    </div>
+
+    <div class="col-md-6">
+        <!--  Employee Info -->
+        <div class="card shadow mb-4">
+            <a href="#collapseEmployee" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
+                <h6 class="m-0 font-weight-bold text-primary">Kurum Çalışanları</h6>
+            </a>
+
+            <div class="collapse show" id="collapseEmployee">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover" id="dtEmployees" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Adı</th>
+                                    <th>Soyadı</th>
+                                    <th>Görevi</th>
+                                    <th style="width:5%;"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Employees)
+                                {
+                                    <tr>
+                                        <td>@item.FirstName</td>
+                                        <td>@item.LastName</td>
+                                        <td>Hizmetli</td>
+                                        <td class="text-center">
+                                            <a href="@Url.Action("Details","Corporation",new { id=item.Id})" class="btn btn-primary btn-circle btn-sm" title="Detaylar">
+                                                <i class="fas fa-angle-right"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <!--  Teacher Info -->
+        <div class="card shadow mb-4">
+            <a href="#collapseTeacher" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
+                <h6 class="m-0 font-weight-bold text-primary">Kurum Öğretmenleri</h6>
+            </a>
+
+            <div class="collapse show" id="collapseTeacher">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover" id="dtTeachers" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Adı</th>
+                                    <th>Soyadı</th>
+                                    <th style="width:5%;"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Teachers)
+                                {
+                                    <tr>
+                                        <td>@item.FirstName</td>
+                                        <td>@item.LastName</td>
+                                        <td class="text-center">
+                                            <a href="@Url.Action("Details","Corporation",new { id=item.Id})" class="btn btn-primary btn-circle btn-sm" title="Detaylar">
+                                                <i class="fas fa-angle-right"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>       
+    </div>
+
+    <div class="col-md-6">
+        <!--  Student Info -->
+        <div class="card shadow mb-4">
+            <a href="#collapseStudent" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
+                <h6 class="m-0 font-weight-bold text-primary">Kurum Öğrencileri</h6>
+            </a>
+
+            <div class="collapse show" id="collapseStudent">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover" id="dtStudents" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Adı</th>
+                                    <th>Soyadı</th>
+                                    <th style="width:5%;"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Students)
+                                {
+                                    <tr>
+                                        <td>@item.FirstName</td>
+                                        <td>@item.LastName</td>
+                                        <td class="text-center">
+                                            <a href="@Url.Action("Details","Corporation",new { id=item.Id})" class="btn btn-primary btn-circle btn-sm" title="Detaylar">
+                                                <i class="fas fa-angle-right"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+@section dataTable
+{
+    <script>
+        $(document).ready(function () {
+            $('#dtCorporations').DataTable({
+                "language":
+                {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Turkish.json"
+                }
+            });
+
+
+             $('#dtClassrooms').DataTable({
+                "language":
+                {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Turkish.json"
+                }
+             });
+
+            $('#dtEducations').DataTable({
+                "language":
+                {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Turkish.json"
+                }
+            });
+
+             $('#dtSchoolManagers').DataTable({
+                "language":
+                {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Turkish.json"
+                }
+            });
+
+             $('#dtTeachers').DataTable({
+                "language":
+                {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Turkish.json"
+                }
+            });
+
+             $('#dtStudents').DataTable({
+                "language":
+                {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Turkish.json"
+                }
+             });
+
+
+             $('#dtEmployees').DataTable({
+                "language":
+                {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Turkish.json"
+                }
+             });
+
+
+        });
+
+    </script>
+}
